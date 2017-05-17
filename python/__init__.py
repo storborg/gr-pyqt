@@ -23,24 +23,6 @@ This is the GNU Radio PYQT module. Place your Python package
 description here (python/__init__.py).
 '''
 
-# ----------------------------------------------------------------
-# Temporary workaround for ticket:181 (swig+python problem)
-import sys
-_RTLD_GLOBAL = 0
-try:
-    from dl import RTLD_GLOBAL as _RTLD_GLOBAL
-except ImportError:
-    try:
-	from DLFCN import RTLD_GLOBAL as _RTLD_GLOBAL
-    except ImportError:
-	pass
-
-if _RTLD_GLOBAL != 0:
-    _dlopenflags = sys.getdlopenflags()
-    sys.setdlopenflags(_dlopenflags|_RTLD_GLOBAL)
-# ----------------------------------------------------------------
-
-
 # import swig generated symbols into the pyqt namespace
 #from pyqt_swig import *
 
@@ -75,9 +57,3 @@ from file_open import *
 from set_title import *
 from table import *
 from dict_ui_source import *
-
-# ----------------------------------------------------------------
-# Tail of workaround
-if _RTLD_GLOBAL != 0:
-    sys.setdlopenflags(_dlopenflags)      # Restore original flags
-# ----------------------------------------------------------------
